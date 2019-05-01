@@ -3,37 +3,17 @@ Web app server for a university project.
 
 
 
-# Running in a docker
-To run the server on a docker you first need to create a docker image from source code. In order to do that you need to navigate to the root directory of this project and enter the following command:
-
-### For Linux:
+## Running in a docker
+To start the server you need to navigate to the root folder of the project in command line interface and enter the following command:
+### For Linux (may require sudo):
 ```
-./mvnw package docker:build
+./start
 ```
 
 ### For Windows:
 ```
-mvnw.cmd package docker:build
+start.cmd
 ```
 
-## Starting the server
-After that you can start the server with
-```
-docker run -p 8080:8080 -t <docker_image>
-```
-
-You can check the name of the image by typing
-```
-docker images
-```
-   
-   
-## Stopping the server
-To stop the server find ID of the running container by typing
-```
-docker container ls
-```
-and stop it with
-```
-docker kill <container_id>
-```
+## MySQL server config
+Inside the `sql-on-init` folder are scripts used by the server during database initialization. They can be freely modified for testing purposes.
