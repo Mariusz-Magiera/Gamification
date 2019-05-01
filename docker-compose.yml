@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=gamification
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+    volumes:
+      - ./sql-on-init:/docker-entrypoint-initdb.d
+  web-app:
+    image: gamification/server
+    depends_on:
+      - mysql
+    ports:
+      - 8080:8080
+    environment:
+      - DATABASE_HOST=mysql
+      - DATABASE_USER=client
+      - DATABASE_PASSWORD=mFuXKWKZ9HI8iNGR
+      - DATABASE_NAME=gamification
+      - DATABASE_PORT=3306
