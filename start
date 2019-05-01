@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rm -rf target/docker
+sh ./mvnw package docker:build
+docker-compose up
