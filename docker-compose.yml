@@ -11,6 +11,7 @@ services:
       - ./sql-on-init:/docker-entrypoint-initdb.d
   web-app:
     image: gamification/server
+    restart: on-failure
     depends_on:
       - mysql
     ports:
