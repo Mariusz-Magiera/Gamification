@@ -8,9 +8,7 @@ import javax.persistence.*;
 @Table(name="user")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @Id @GeneratedValue private Integer id;
     @Column(name = "permission") private Integer permission;
     @Column(name = "name") private String name;
     @Column(name = "password") private String password;
