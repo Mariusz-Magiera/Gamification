@@ -25,7 +25,8 @@
 ## /authorize
 *  POST
 * parameters:
-	*  name
+	* name
 	* password
 * returns true if user with given name and password exists
+* parameters are passed as a <String,String> Pair inside request body
 
