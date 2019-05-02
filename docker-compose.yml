@@ -9,6 +9,7 @@ services:
       - MYSQL_RANDOM_ROOT_PASSWORD=yes
     volumes:
       - ./sql-on-init:/docker-entrypoint-initdb.d
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
   web-app:
     image: gamification/server
     restart: on-failure

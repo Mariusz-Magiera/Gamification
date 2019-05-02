@@ -14,8 +14,8 @@ VALUES
     
 INSERT INTO user_achievement (user, points, description)
 VALUES
-	(1, 5, 'Bardzo ładny projekt zrobił'),
-    (3, 20, 'Napisał Paypala');
+	(1, 5, 'Bardzo ladny projekt zrobil'),
+    (3, 20, 'Napisal Paypala');
     
 INSERT INTO profile_link (user, type, url)
 VALUES
@@ -24,17 +24,17 @@ VALUES
     
 INSERT INTO project (name, description)
 VALUES
-	('taki Facebook, ale lepszy', 'hej, mam taki nowy pomysł na stronę...'),
-    ('aplikacja do grywalizacji', 'Aplikacja do grywalizacji dla Koła Naukowego');
+	('taki Facebook, ale lepszy', 'hej, mam taki nowy pomysl na strone...'),
+    ('aplikacja do grywalizacji', 'Aplikacja do grywalizacji dla Kola Naukowego');
     
 INSERT INTO project_achievement (project, points, description)
 VALUES
-	(1, 50, 'na pewno się sprzeda'),
+	(1, 50, 'na pewno sie sprzeda'),
     (1, 10, 'xD');
     
 INSERT INTO task (project, points, description, due_date)
 VALUES
-	(1, 100, 'inwigilacja użytkowników', '2020-02-10'),
+	(1, 100, 'inwigilacja uzytkownikow', '2020-02-10'),
     (1, 10, 'messenger', '2019-06-30'),
     (2, 9999, 'deadline', '2019-05-29');
     
