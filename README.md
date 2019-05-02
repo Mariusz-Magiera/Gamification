@@ -17,3 +17,5 @@ start.cmd
 
 ## MySQL server config
 Inside the `sql-on-init` folder are scripts used by the server during database initialization. They can be freely modified for testing purposes.
+
+## [API Endpoints](https://github.com/Mariusz-Magiera/Gamification-Backend/blob/master/ENDPOINT_DOCS.md)
