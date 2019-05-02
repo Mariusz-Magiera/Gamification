@@ -1,5 +1,7 @@
 package com.gamification.server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,7 +9,7 @@ import javax.persistence.*;
 public class ProjectAchievement {
 
     @Id @GeneratedValue private Integer id;
-    @Column(name = "project") private Integer project;
+    @ManyToOne @JoinColumn(name = "project") @JsonIgnore private Project project;
     @Column(name = "points") private Integer points;
     @Column(name = "description", columnDefinition = "TEXT") private String description;
 
@@ -22,11 +24,11 @@ public class ProjectAchievement {
         this.id = id;
     }
 
-    public Integer getProject() {
+    public Project getProject() {
         return project;
     }
 
-    public void setProject(Integer project) {
+    public void setProject(Project project) {
         this.project = project;
     }
 

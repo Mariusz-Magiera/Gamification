@@ -1,5 +1,7 @@
 package com.gamification.server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,28 +9,20 @@ import javax.persistence.*;
 public class ProfileLink {
 
     @Id @GeneratedValue private Integer id;
-    @Column(name = "user") private Integer user;
+    @ManyToOne @JoinColumn(name = "user") @JsonIgnore private User user;
     @Column(name = "type") private String type;
     @Column(name = "url") private String url;
 
     public ProfileLink() {
     }
 
-    public Integer getId() {
-        return id;
-    }
+    public Integer getId() { return id; }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    public void setId(Integer id) { this.id = id; }
 
-    public Integer getUser() {
-        return user;
-    }
+    public User getUser() { return user; }
 
-    public void setUser(Integer user) {
-        this.user = user;
-    }
+    public void setUser(User user) { this.user = user; }
 
     public String getType() {
         return type;
