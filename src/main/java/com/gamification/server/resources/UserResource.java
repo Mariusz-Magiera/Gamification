@@ -41,5 +41,25 @@ public class UserResource {
         return null;
     }
 
-    
+    @PostMapping("/add")
+    public User addUser(@RequestBody User user){
+        return userRepository.save(user);
+    }
+
+    /*
+    @PutMapping("/id/{id}/changePassword")
+    public Boolean changePassword(@PathVariable final Integer id,
+                                  @RequestParam("oldPassword") String oldPassword,
+                                  @RequestParam("newPassword") String newPassword){
+        Optional<User> user = getUserById(id);
+        if(user.isPresent()){
+            if( DigestUtils.sha1Hex(oldPassword)==user.get().getPassword()){
+                user.get().setPassword(DigestUtils.sha1Hex(newPassword));
+                userRepository.save(user.get());
+                return true;
+            }
+        }
+        return false;
+    }
+    */
 }
