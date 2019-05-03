@@ -1,3 +1,4 @@
+
 # API Endpoints
 
 ## /users
@@ -7,6 +8,11 @@
 ### /id/{id}
 *  GET
 * returns user with specific `{id}`
+### /add
+*  POST
+* request body:
+	* JSON user
+* adds new user
 ### /id/{id}/links
 *  GET
 * returns all profile links of the user with specific `{id}`
@@ -18,14 +24,16 @@
 ### /id/{id}
 *  GET
 * returns projectwith specific `{id}`
+
 ### /id/{id}/tasks
 *  GET
 * returns all tasks of the project with specific `{id}`
 
 ## /authorize
 *  POST
-* parameters:
-	*  name
-	* password
+* request body:
+	* JSON user object with fields: 
+		* name
+		* password
 * returns true if user with given name and password exists
 
