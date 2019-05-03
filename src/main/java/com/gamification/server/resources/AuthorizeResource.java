@@ -1,13 +1,11 @@
 package com.gamification.server.resources;
 
+import com.gamification.server.model.User;
 import com.gamification.server.repository.UserRepository;
-import javafx.util.Pair;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.data.util.Pair;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AuthorizeResource {
@@ -16,7 +14,7 @@ public class AuthorizeResource {
     UserRepository userRepository;
 
     @PostMapping("/authorize")
-    public Boolean authorize(@RequestBody Pair<String, String> userData) {
-        return userRepository.findByNameAndPassword(userData.getKey(), DigestUtils.sha1Hex(userData.getValue())).isPresent();
+    public Boolean authorize(@RequestBody User user) {
+        return userRepository.findByNameAndPassword(user.getName(), DigestUtils.sha1Hex(user.getPassword())).isPresent();
     }
 }
