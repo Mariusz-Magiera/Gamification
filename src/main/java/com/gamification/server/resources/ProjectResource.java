@@ -2,6 +2,7 @@ package com.gamification.server.resources;
 
 import com.gamification.server.model.Project;
 import com.gamification.server.model.Task;
+import com.gamification.server.model.User;
 import com.gamification.server.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,15 @@ public class ProjectResource {
         Optional<Project> project = getProjectById(id);
         if(project.isPresent()){
             return new ArrayList<>(project.get().getTasks());
+        }
+        return null;
+    }
+
+    @GetMapping("/id/{id}/users")
+    public List<User> getUsers(@PathVariable final Integer id){
+        Optional<Project> project = getProjectById(id);
+        if(project.isPresent()){
+            return new ArrayList<>(project.get().getUsers());
         }
         return null;
     }

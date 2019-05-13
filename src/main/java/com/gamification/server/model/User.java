@@ -23,6 +23,12 @@ public class User {
     private Set<UserAchievement> achievements;
 
     @ManyToMany
+    @JsonIgnore
+    @JoinTable(
+            name = "project_to_user",
+            joinColumns = @JoinColumn(name = "user"),
+            inverseJoinColumns = @JoinColumn(name = "project")
+    )
     private Set<Project> projects;
 
     public User() {
@@ -74,5 +80,13 @@ public class User {
 
     public void setAchievements(Set<UserAchievement> achievements) {
         this.achievements = achievements;
+    }
+
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
     }
 }

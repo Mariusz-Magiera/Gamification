@@ -1,6 +1,7 @@
 package com.gamification.server.resources;
 
 import com.gamification.server.model.ProfileLink;
+import com.gamification.server.model.Project;
 import com.gamification.server.model.User;
 import com.gamification.server.repository.ProfileLinkRepository;
 import com.gamification.server.repository.UserRepository;
@@ -44,6 +45,15 @@ public class UserResource {
     @PostMapping("/add")
     public User addUser(@RequestBody User user){
         return userRepository.save(user);
+    }
+
+    @GetMapping("/id/{id}/projects")
+    public List<Project> getProjects(@PathVariable final Integer id){
+        Optional<User> user = getUserById(id);
+        if(user.isPresent()){
+            return new ArrayList<>(user.get().getProjects());
+        }
+        return null;
     }
 
     /*

@@ -1,5 +1,7 @@
 package com.gamification.server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -17,7 +19,8 @@ public class Project {
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private Set<ProjectAchievement> achievements;
 
-    @ManyToMany()
+    @ManyToMany(mappedBy = "projects")
+    @JsonIgnore
     private Set<User> users;
 
     public Project() {
@@ -61,5 +64,13 @@ public class Project {
 
     public void setAchievements(Set<ProjectAchievement> achievements) {
         this.achievements = achievements;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }
