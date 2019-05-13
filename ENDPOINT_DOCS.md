@@ -16,6 +16,9 @@
 ### /id/{id}/links
 *  GET
 * returns all profile links of the user with specific `{id}`
+### /id/{id}/projects
+*  GET
+* returns all projects that the user with specific `{id}` participates in
 
 ## /projects
 ### /all
@@ -23,12 +26,14 @@
 * returns every project
 ### /id/{id}
 *  GET
-* returns projectwith specific `{id}`
+* returns project with specific `{id}`
 
 ### /id/{id}/tasks
 *  GET
 * returns all tasks of the project with specific `{id}`
-
+### /id/{id}/users
+*  GET
+* returns all participants of the project with specific `{id}`
 ## /authorize
 *  POST
 * request body:
