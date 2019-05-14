@@ -2,6 +2,7 @@ package com.gamification.server.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.util.Set;
 @Table(name="user")
 public class User {
 
-    @Id @GeneratedValue private Integer id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Integer id;
     @ManyToOne @JoinColumn(name = "permission") private Permission permission;
     @Column(name = "name") private String name;
     @Column(name = "password") @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) private String password;
