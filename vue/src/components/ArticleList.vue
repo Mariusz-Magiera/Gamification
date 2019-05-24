@@ -6,7 +6,7 @@
         No articles are here... yet.
       </div>
       <RwvArticlePreview
-        v-for="(article, index) in articles"
+        v-for="(article, index) in orderedProjects"
         :article="article"
         :key="article.name + index"
       />
@@ -20,6 +20,7 @@ import { mapGetters } from "vuex";
 import RwvArticlePreview from "./VArticlePreview";
 import VPagination from "./VPagination";
 import { FETCH_ARTICLES } from "../store/actions.type";
+import { orderBy } from 'lodash';
 
 export default {
   name: "RwvArticleList",
@@ -57,6 +58,15 @@ export default {
     };
   },
   computed: {
+    orderedProjects: function () {
+      return orderBy(this.articles, project => {
+        let points = 0;
+        for(const a of project.achievements) {
+          points += a.points;
+        }
+        return points;
+      }, "desc")
+    },
     listConfig() {
       const { type } = this;
       const filters = {

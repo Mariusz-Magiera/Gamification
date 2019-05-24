@@ -6,7 +6,7 @@
         No articles are here... yet.
       </div>
       <RwvUserPreview
-        v-for="(user, index) in articles"
+        v-for="(user, index) in orderedUsers"
         :user="user"
         :key="user.name + index"
       />
@@ -20,6 +20,7 @@ import { mapGetters } from "vuex";
 import RwvUserPreview from "./VUserPreview";
 import VPagination from "./VPagination";
 import { FETCH_USERS } from "../store/actions.type";
+import { orderBy } from 'lodash';
 
 export default {
   name: "RwvArticleList",
@@ -57,6 +58,16 @@ export default {
     };
   },
   computed: {
+
+    orderedUsers: function () {
+      return orderBy(this.articles, user => {
+        let points = 0;
+        for(const a of user.achievements) {
+          points += a.points;
+        }
+        return points;
+      }, "desc")
+    },
     listConfig() {
       const { type } = this;
       const filters = {

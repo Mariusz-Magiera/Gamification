@@ -80,16 +80,6 @@ export default {
   },
   computed: {
     ...mapGetters(["article", "users", "currentUser", "comments", "isAuthenticated"]),
-    userLink(id) {
-      return () => {
-        return {
-          name: "user",
-          params: {
-            slug: id
-          }
-        };
-      }
-    }
   },
   methods: {
     parseMarkdown(content) {

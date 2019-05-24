@@ -52,10 +52,10 @@ const actions = {
       ApiService.post("users/add", {
         name: credentials.username,
         password: credentials.password,
-        permission: { type: 2 }
+        permission: { type: 1 }
       })
         .then(({ data }) => {
-          context.commit(SET_AUTH, { username: credentials.user });
+          context.commit(SET_AUTH, credentials.username);
           resolve(data);
         })
         .catch(({ response }) => {
