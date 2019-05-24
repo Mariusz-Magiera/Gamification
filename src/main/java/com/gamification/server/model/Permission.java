@@ -8,7 +8,7 @@ import java.util.Set;
 public class Permission {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer type;
 
     @OneToMany(mappedBy = "permission", cascade = CascadeType.ALL)
