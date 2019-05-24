@@ -55,6 +55,24 @@ export const TagsService = {
   }
 };
 
+export const UsersService = {
+  query() {
+    return ApiService.query("users/all");
+  },
+  get(id) {
+    return ApiService.get("users/id", id);
+  },
+  create(params) {
+    return ApiService.post("projects", { article: params });
+  },
+  update(slug, params) {
+    return ApiService.update("projects", slug, { article: params });
+  },
+  destroy(slug) {
+    return ApiService.delete(`projects/${slug}`);
+  }
+};
+
 export const ArticlesService = {
   query(type, params) {
     return ApiService.query("projects" + (type === "feed" ? "/feed" : ""), {

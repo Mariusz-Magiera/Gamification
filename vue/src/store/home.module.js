@@ -1,5 +1,5 @@
-import { ArticlesService, TagsService } from "@/common/api.service";
-import { FETCH_ARTICLES, FETCH_TAGS } from "./actions.type";
+import { ArticlesService, TagsService, UsersService } from "@/common/api.service";
+import { FETCH_ARTICLES, FETCH_TAGS, FETCH_USERS, FETCH_USER } from "./actions.type";
 import {
   FETCH_START,
   FETCH_END,
@@ -30,11 +30,30 @@ const getters = {
 };
 
 const actions = {
+  [FETCH_USERS]({ commit }, params) {
+    commit(FETCH_START);
+    return UsersService.query()
+      .then(({ data }) => {
+        commit(FETCH_END, { articles: data });
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
+  },
+  [FETCH_USER]({ commit }, params) {
+    commit(FETCH_START);
+    return UsersService.get(params)
+      .then(({ data }) => {
+        commit(FETCH_END, { articles: data });
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
+  },
   [FETCH_ARTICLES]({ commit }, params) {
     commit(FETCH_START);
     return ArticlesService.query(params.type, params.filters)
       .then(({ data }) => {
-        console.log();
         commit(FETCH_END, { articles: data });
       })
       .catch(error => {

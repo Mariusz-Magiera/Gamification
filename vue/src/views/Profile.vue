@@ -63,7 +63,7 @@
                     params: { profile: profile }
                   }"
                 >
-                  Favorited Articles
+                  Achievements
                 </router-link>
               </li>
               <li class="nav-item">
@@ -73,7 +73,7 @@
                   exact
                   :to="{ name: 'profile-links', params: { profile: profile } }"
                 >
-                  Favorited Articles
+                  Links
                 </router-link>
               </li>
             </ul>

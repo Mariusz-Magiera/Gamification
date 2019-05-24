@@ -106,7 +106,8 @@ export const actions = {
 /* eslint no-param-reassign: ["error", { "props": false }] */
 export const mutations = {
   [SET_ARTICLE_USERS](state, users) {
-    state.article.users = users;
+    console.log(users)
+    state.users = users;
   },
   [SET_ARTICLE](state, article) {
     state.article = article;
@@ -130,6 +131,9 @@ export const mutations = {
 const getters = {
   article(state) {
     return state.article;
+  },
+  users(state) {
+    return state.users;
   },
   comments(state) {
     return state.comments;

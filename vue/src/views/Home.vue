@@ -30,6 +30,15 @@
                   All Projects
                 </router-link>
               </li>
+              <li class="nav-item">
+                <router-link
+                  :to="{ name: 'home-my-feed' }"
+                  exact
+                  class="nav-link"
+                >
+                  Users
+                </router-link>
+              </li>
               <li class="nav-item" v-if="tag">
                 <router-link
                   :to="{ name: 'home-tag', params: { tag } }"

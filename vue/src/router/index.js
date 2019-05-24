@@ -74,6 +74,12 @@ export default new Router({
       props: true
     },
     {
+      name: "user",
+      path: "/users/:slug",
+      component: () => import("@/views/User"),
+      props: true
+    },
+    {
       name: "article-edit",
       path: "/editor/:slug?",
       props: true,
