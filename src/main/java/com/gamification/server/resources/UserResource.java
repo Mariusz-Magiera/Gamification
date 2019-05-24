@@ -1,8 +1,10 @@
 package com.gamification.server.resources;
 
+import com.gamification.server.model.Permission;
 import com.gamification.server.model.ProfileLink;
 import com.gamification.server.model.Project;
 import com.gamification.server.model.User;
+import com.gamification.server.repository.PermissionRepository;
 import com.gamification.server.repository.ProfileLinkRepository;
 import com.gamification.server.repository.UserRepository;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -22,6 +24,10 @@ public class UserResource {
 
     @Autowired
     ProfileLinkRepository profileLinkRepository;
+
+    @Autowired
+    PermissionRepository permissionRepository;
+
 
     @GetMapping({"/all", "/", ""})
     public List<User> getAll(){
@@ -44,6 +50,13 @@ public class UserResource {
 
     @PostMapping("/add")
     public User addUser(@RequestBody User user){
+
+        if(user.getPermission()==null){
+            Optional<Permission> p = permissionRepository.findById(0);
+            if(p.isPresent())
+                user.setPermission(p.get());
+        }
+        user.setPassword(DigestUtils.sha1Hex(user.getPassword()));
         return userRepository.save(user);
     }
 
