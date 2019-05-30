@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="isLoading" class="article-preview">Loading articles...</div>
+    <div v-if="isLoading" class="article-preview">Loading projects...</div>
     <div v-else>
       <div v-if="articles.length === 0" class="article-preview">
         No articles are here... yet.
@@ -20,7 +20,7 @@ import { mapGetters } from "vuex";
 import RwvArticlePreview from "./VArticlePreview";
 import VPagination from "./VPagination";
 import { FETCH_ARTICLES } from "../store/actions.type";
-import { orderBy } from 'lodash';
+import { orderBy } from "lodash";
 
 export default {
   name: "RwvArticleList",
@@ -58,14 +58,18 @@ export default {
     };
   },
   computed: {
-    orderedProjects: function () {
-      return orderBy(this.articles, project => {
-        let points = 0;
-        for(const a of project.achievements) {
-          points += a.points;
-        }
-        return points;
-      }, "desc")
+    orderedProjects: function() {
+      return orderBy(
+        this.articles,
+        project => {
+          let points = 0;
+          for (const a of project.achievements) {
+            points += a.points;
+          }
+          return points;
+        },
+        "desc"
+      );
     },
     listConfig() {
       const { type } = this;

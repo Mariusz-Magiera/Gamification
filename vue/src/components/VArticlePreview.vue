@@ -27,7 +27,7 @@ export default {
   computed: {
     sumPoints() {
       let points = 0;
-      for(const a of this.article.achievements) {
+      for (const a of this.article.achievements) {
         points += a.points;
       }
       return points;

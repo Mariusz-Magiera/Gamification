@@ -7,8 +7,9 @@
       </div>
     </div>
     <div class="container page">
-
-      <h3>Total points: <b style="color: green">{{ sumPoints() }}</b></h3>
+      <h3>
+        Total points: <b style="color: green">{{ sumPoints() }}</b>
+      </h3>
       <div class="row article-content">
         <div class="col-xs-12">
           <h3>Participants</h3>
@@ -22,8 +23,11 @@
           <h3>Available tasks</h3>
           <ul>
             <li v-for="(tag, index) of article.tasks" :key="tag + index">
-              <u>{{ tag.description }}</u> ({{ tag.points }} points).<br>
-              Deadline: <i style="color: red">{{ new Date(tag.due_date).toDateString() }}</i>
+              <u>{{ tag.description }}</u> ({{ tag.points }} points).<br />
+              Deadline:
+              <i style="color: red">{{
+                new Date(tag.due_date).toDateString()
+              }}</i>
             </li>
           </ul>
           <h3>Achievements</h3>
@@ -79,7 +83,13 @@ export default {
     });
   },
   computed: {
-    ...mapGetters(["article", "users", "currentUser", "comments", "isAuthenticated"]),
+    ...mapGetters([
+      "article",
+      "users",
+      "currentUser",
+      "comments",
+      "isAuthenticated"
+    ])
   },
   methods: {
     parseMarkdown(content) {
@@ -87,7 +97,7 @@ export default {
     },
     sumPoints() {
       let points = 0;
-      for(const a of this.article.achievements) {
+      for (const a of this.article.achievements) {
         points += a.points;
       }
       return points;

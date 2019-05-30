@@ -1,5 +1,14 @@
-import { ArticlesService, TagsService, UsersService } from "@/common/api.service";
-import { FETCH_ARTICLES, FETCH_TAGS, FETCH_USERS, FETCH_USER } from "./actions.type";
+import {
+  ArticlesService,
+  TagsService,
+  UsersService
+} from "@/common/api.service";
+import {
+  FETCH_ARTICLES,
+  FETCH_TAGS,
+  FETCH_USERS,
+  FETCH_USER
+} from "./actions.type";
 import {
   FETCH_START,
   FETCH_END,
