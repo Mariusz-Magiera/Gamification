@@ -1,13 +1,14 @@
 CREATE TABLE IF NOT EXISTS user(
 	id int not null auto_increment,
     permission int not null,
-    name varchar(255) not null,
+    name varchar(255) not null unique,
     password varchar(255) not null,
     primary key (id)
 );
 
 CREATE TABLE IF NOT EXISTS permission(
 	type int not null auto_increment,
+	name varchar(20) not null unique,
     primary key (type)
 );
 
@@ -31,12 +32,13 @@ CREATE TABLE IF NOT EXISTS project_to_user(
 	id int not null auto_increment,
     user int not null,
     project int not null,
-    primary key (id)
+    primary key (id),
+    unique (user, project)
 );
 
 CREATE TABLE IF NOT EXISTS project(
 	id int not null auto_increment,
-    name varchar(255) not null,
+    name varchar(255) not null unique,
     description text,
     primary key (id)
 );

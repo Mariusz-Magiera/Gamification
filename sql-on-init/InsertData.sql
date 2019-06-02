@@ -1,8 +1,8 @@
-INSERT INTO permission
+INSERT INTO permission(name)
 VALUES
-	(),
-    (),
-    ();
+	('USER'),
+    ('MOD'),
+    ('ADMIN');
     
 INSERT INTO user (permission, name, password)
 VALUES
