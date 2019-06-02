@@ -11,6 +11,8 @@ public class Permission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer type;
 
+    @Column(name="name") private String name;
+
     @OneToMany(mappedBy = "permission", cascade = CascadeType.ALL)
     private Set<User> users;
 
@@ -23,5 +25,13 @@ public class Permission {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
