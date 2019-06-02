@@ -1,18 +1,18 @@
 package com.gamification.server.resources;
 
-import com.gamification.server.model.Permission;
-import com.gamification.server.model.ProfileLink;
-import com.gamification.server.model.Project;
-import com.gamification.server.model.User;
+import com.gamification.server.model.*;
 import com.gamification.server.repository.PermissionRepository;
 import com.gamification.server.repository.ProfileLinkRepository;
+import com.gamification.server.repository.UserAchievementRepository;
 import com.gamification.server.repository.UserRepository;
+import javafx.util.Pair;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -27,6 +27,9 @@ public class UserResource {
 
     @Autowired
     PermissionRepository permissionRepository;
+
+    @Autowired
+    UserAchievementRepository achievementRepository;
 
 
     @GetMapping({"/all", "/", ""})
@@ -67,6 +70,45 @@ public class UserResource {
             return new ArrayList<>(user.get().getProjects());
         }
         return null;
+    }
+
+    @PostMapping("/id/{id}/addLink")
+    public Boolean addLink(@PathVariable final Integer id, @RequestBody final User user,
+                                  @RequestParam(name="type") final String type, @RequestParam(name = "link") final String url){
+        Optional<User> owner = getUserById(id),
+                verified = userRepository.findByNameAndPassword(user.getName(), DigestUtils.sha1Hex(user.getPassword()));
+        if(!(verified.isPresent() && owner.isPresent())){
+            return false;
+        }
+        ProfileLink profileLink = new ProfileLink();
+        profileLink.setType(type);
+        profileLink.setUrl(url);
+        if(owner.get().equals(verified.get())){
+            profileLink.setUser(owner.get());
+            profileLinkRepository.save(profileLink);
+            return true;
+        }
+        return false;
+    }
+
+    @PostMapping("/id/{id}/addAchievement")
+    public Boolean addAchievement(@PathVariable final Integer id, @RequestBody final User mod,
+                                  @RequestParam(name="points") final Integer points, @RequestParam(name = "desc") final String description){
+        UserAchievement achievement = new UserAchievement();
+        achievement.setPoints(points);
+        achievement.setDescription(description);
+        Optional<User> user = getUserById(id),
+                verifiedMod = userRepository.findByNameAndPassword(mod.getName(), DigestUtils.sha1Hex(mod.getPassword()));
+        if(!verifiedMod.isPresent()){
+            return false;
+        }
+        String perm = verifiedMod.get().getPermission().getName();
+        if(user.isPresent() && (perm.equals("MOD") || perm.equals("ADMIN"))){
+            achievement.setUser(user.get());
+            achievementRepository.save(achievement);
+            return true;
+        }
+        return false;
     }
 
     /*
