@@ -88,15 +88,12 @@ export default {
     }
   },
   beforeRouteEnter(to, from, next) {
-    Promise.all([
-      store.dispatch(FETCH_USER, to.params.slug)
-      // store.dispatch(FETCH_COMMENTS, to.params.slug)
-    ]).then(() => {
+    Promise.all([store.dispatch(FETCH_USER, to.params.slug)]).then(() => {
       next();
     });
   },
   computed: {
-    ...mapGetters(["articles", "currentUser", "comments", "isAuthenticated"])
+    ...mapGetters(["articles", "currentUser", "isAuthenticated"])
   },
   methods: {
     addAchievement() {

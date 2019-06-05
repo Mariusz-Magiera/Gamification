@@ -5,7 +5,6 @@
       <p>{{ sumPoints }} points</p>
       <p v-text="article.description" />
       <span>Read more...</span>
-      <!-- <TagList :tags="article.tasks" /> -->
     </router-link>
   </div>
 </template>

@@ -25,35 +25,6 @@ export default {
   components: {
     RwvArticlePreview
   },
-  props: {
-    type: {
-      type: String,
-      required: false,
-      default: "all"
-    },
-    author: {
-      type: String,
-      required: false
-    },
-    tag: {
-      type: String,
-      required: false
-    },
-    favorited: {
-      type: String,
-      required: false
-    },
-    itemsPerPage: {
-      type: Number,
-      required: false,
-      default: 10
-    }
-  },
-  data() {
-    return {
-      currentPage: 1
-    };
-  },
   computed: {
     orderedProjects: function() {
       return orderBy(

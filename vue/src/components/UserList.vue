@@ -45,30 +45,6 @@ export default {
   components: {
     RwvUserPreview
   },
-  props: {
-    type: {
-      type: String,
-      required: false,
-      default: "all"
-    },
-    author: {
-      type: String,
-      required: false
-    },
-    tag: {
-      type: String,
-      required: false
-    },
-    favorited: {
-      type: String,
-      required: false
-    },
-    itemsPerPage: {
-      type: Number,
-      required: false,
-      default: 10
-    }
-  },
   data() {
     return {
       currentPage: 1,
@@ -112,33 +88,7 @@ export default {
         filters
       };
     },
-    pages() {
-      if (this.isLoading || this.articlesCount <= this.itemsPerPage) {
-        return [];
-      }
-      return [
-        ...Array(Math.ceil(this.articlesCount / this.itemsPerPage)).keys()
-      ].map(e => e + 1);
-    },
     ...mapGetters(["articlesCount", "isLoading", "articles"])
-  },
-  watch: {
-    currentPage(newValue) {
-      this.listConfig.filters.offset = (newValue - 1) * this.itemsPerPage;
-      this.fetchArticles();
-    },
-    type() {
-      this.fetchArticles();
-    },
-    author() {
-      this.fetchArticles();
-    },
-    tag() {
-      this.fetchArticles();
-    },
-    favorited() {
-      this.fetchArticles();
-    }
   },
   mounted() {
     this.fetchArticles();

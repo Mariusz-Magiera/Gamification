@@ -48,7 +48,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-import marked from "marked";
 import store from "@/store";
 import { FETCH_ARTICLE, FETCH_ARTICLE_USERS } from "@/store/actions.type";
 
@@ -78,9 +77,6 @@ export default {
     ])
   },
   methods: {
-    parseMarkdown(content) {
-      return marked(content);
-    },
     sumPoints() {
       let points = 0;
       for (const a of this.article.achievements) {

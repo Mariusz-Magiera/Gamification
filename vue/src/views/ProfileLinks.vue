@@ -9,18 +9,8 @@
 </template>
 
 <script>
-import RwvArticleList from "@/components/ArticleList";
-
 export default {
   name: "RwvProfileFavorited",
-  props: ["profile"],
-  components: {
-    RwvArticleList
-  },
-  computed: {
-    favorited() {
-      return this.$route.params.username;
-    }
-  }
+  props: ["profile"]
 };
 </script>

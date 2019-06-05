@@ -8,3 +8,8 @@
 ```
 
 Edit `API_URL` in `src/common/config.js` to change link to backend.
+
+## Requirements
+
+1. NodeJS v8.11.3
+2. Yarn v0.24.5

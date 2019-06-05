@@ -49,7 +49,10 @@ const actions = {
         permission: { type: 1 }
       })
         .then(({ data }) => {
-          context.commit(SET_AUTH, {name: credentials.username, password: credentials.password});
+          context.commit(SET_AUTH, {
+            name: credentials.username,
+            password: credentials.password
+          });
           resolve(data);
         })
         .catch(({ response }) => {
