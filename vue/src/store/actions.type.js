@@ -1,0 +1,10 @@
+export const CHECK_AUTH = "checkAuth";
+export const FETCH_ARTICLE = "fetchArticle";
+export const FETCH_ARTICLE_USERS = "fetchArticleUsers";
+export const FETCH_ARTICLES = "fetchArticles";
+export const FETCH_USERS = "fetchUsers";
+export const FETCH_USER = "fetchUser";
+export const FETCH_PROFILE = "fetchProfile";
+export const LOGIN = "login";
+export const LOGOUT = "logout";
+export const REGISTER = "register";
