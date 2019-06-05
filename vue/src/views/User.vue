@@ -15,7 +15,6 @@
       </h3>
       <div class="row article-content">
         <div class="col-xs-12">
-          <!-- <div v-html="parseMarkdown(article.body)"></div> -->
           <h3>Links</h3>
           <ul>
             <li v-for="(link, index) of articles.links" :key="index">
@@ -46,10 +45,6 @@
               :key="achievement + index"
             >
               {{ achievement.description }} ({{ achievement.points }} points)
-              <!-- <RwvTag -->
-              <!-- :name="tag" -->
-              <!-- className="tag-default tag-pill tag-outline" -->
-              <!-- &gt;</RwvTag> -->
             </li>
           </ul>
         </div>
@@ -64,10 +59,6 @@
   import { mapGetters } from 'vuex'
   import marked from 'marked'
   import store from '@/store'
-  import RwvArticleMeta from '@/components/ArticleMeta'
-  import RwvComment from '@/components/Comment'
-  import RwvCommentEditor from '@/components/CommentEditor'
-  import RwvTag from '@/components/VTag'
   import { FETCH_ARTICLE_USERS, FETCH_COMMENTS, FETCH_USER } from '@/store/actions.type'
   import Vue from 'vue'
 
@@ -85,12 +76,6 @@
         type: String,
         required: true
       }
-    },
-    components: {
-      RwvArticleMeta,
-      RwvComment,
-      RwvCommentEditor,
-      RwvTag
     },
     beforeRouteEnter (to, from, next) {
       Promise.all([
@@ -123,9 +108,6 @@
           }
         )
         // alert(this.new_achievement_description + this.new_achievement_points)
-      },
-      parseMarkdown (content) {
-        return marked(content)
       },
       sumPoints () {
         let points = 0

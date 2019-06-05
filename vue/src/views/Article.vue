@@ -50,14 +50,9 @@
 import { mapGetters } from "vuex";
 import marked from "marked";
 import store from "@/store";
-import RwvArticleMeta from "@/components/ArticleMeta";
-import RwvComment from "@/components/Comment";
-import RwvCommentEditor from "@/components/CommentEditor";
-import RwvTag from "@/components/VTag";
 import {
   FETCH_ARTICLE,
-  FETCH_ARTICLE_USERS,
-  FETCH_COMMENTS
+  FETCH_ARTICLE_USERS
 } from "@/store/actions.type";
 
 export default {
@@ -67,12 +62,6 @@ export default {
       type: String,
       required: true
     }
-  },
-  components: {
-    RwvArticleMeta,
-    RwvComment,
-    RwvCommentEditor,
-    RwvTag
   },
   beforeRouteEnter(to, from, next) {
     Promise.all([

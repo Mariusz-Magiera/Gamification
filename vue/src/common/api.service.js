@@ -49,11 +49,6 @@ const ApiService = {
 
 export default ApiService;
 
-export const TagsService = {
-  get() {
-    return ApiService.get("tags");
-  }
-};
 
 export const UsersService = {
   query() {
@@ -61,12 +56,6 @@ export const UsersService = {
   },
   get(id) {
     return ApiService.get("users/id", id);
-  },
-  create(params) {
-    return ApiService.post("projects", { article: params });
-  },
-  update(slug, params) {
-    return ApiService.update("projects", slug, { article: params });
   },
   destroy(slug) {
     return ApiService.delete(`projects/${slug}`);
@@ -81,59 +70,11 @@ export const ArticlesService = {
   },
   get(id) {
     return ApiService.get("projects/id", id);
-  },
-  create(params) {
-    return ApiService.post("projects", { article: params });
-  },
-  update(slug, params) {
-    return ApiService.update("projects", slug, { article: params });
-  },
-  destroy(slug) {
-    return ApiService.delete(`projects/${slug}`);
   }
 };
 
 export const ArticlesUserService = {
   get(id) {
     return ApiService.get(`projects/id/${id}/users`);
-  },
-  create(params) {
-    return ApiService.post("projects", { article: params });
-  },
-  update(slug, params) {
-    return ApiService.update("projects", slug, { article: params });
-  },
-  destroy(slug) {
-    return ApiService.delete(`projects/${slug}`);
-  }
-};
-
-export const CommentsService = {
-  get(slug) {
-    if (typeof slug !== "string") {
-      throw new Error(
-        "[RWV] CommentsService.get() article slug required to fetch comments"
-      );
-    }
-    return ApiService.get("articles", `${slug}/comments`);
-  },
-
-  post(slug, payload) {
-    return ApiService.post(`articles/${slug}/comments`, {
-      comment: { body: payload }
-    });
-  },
-
-  destroy(slug, commentId) {
-    return ApiService.delete(`articles/${slug}/comments/${commentId}`);
-  }
-};
-
-export const FavoriteService = {
-  add(slug) {
-    return ApiService.post(`articles/${slug}/favorite`);
-  },
-  remove(slug) {
-    return ApiService.delete(`articles/${slug}/favorite`);
   }
 };

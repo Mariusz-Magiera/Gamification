@@ -1,8 +1,6 @@
 import ApiService from "@/common/api.service";
 import {
-  FETCH_PROFILE,
-  FETCH_PROFILE_FOLLOW,
-  FETCH_PROFILE_UNFOLLOW
+  FETCH_PROFILE
 } from "./actions.type";
 import { SET_PROFILE } from "./mutations.type";
 
@@ -30,30 +28,6 @@ const actions = {
             context.commit(SET_PROFILE, user);
           }
         }
-        return data;
-      })
-      .catch(() => {
-        // #todo SET_ERROR cannot work in multiple states
-        // context.commit(SET_ERROR, response.data.errors)
-      });
-  },
-  [FETCH_PROFILE_FOLLOW](context, payload) {
-    const { username } = payload;
-    return ApiService.post(`profiles/${username}/follow`)
-      .then(({ data }) => {
-        context.commit(SET_PROFILE, data.profile);
-        return data;
-      })
-      .catch(() => {
-        // #todo SET_ERROR cannot work in multiple states
-        // context.commit(SET_ERROR, response.data.errors)
-      });
-  },
-  [FETCH_PROFILE_UNFOLLOW](context, payload) {
-    const { username } = payload;
-    return ApiService.delete(`profiles/${username}/follow`)
-      .then(({ data }) => {
-        context.commit(SET_PROFILE, data.profile);
         return data;
       })
       .catch(() => {

@@ -1,6 +1,5 @@
 <template>
   <div class="article-preview">
-    <RwvArticleMeta isPreview :article="user" />
     <router-link :to="articleLink" class="preview-link">
       <h1 v-text="user.name" />
       <p v-text="sumPoints + ' points'" />
@@ -14,15 +13,9 @@
 </template>
 
 <script>
-import RwvArticleMeta from "./ArticleMeta";
-import TagList from "./TagList";
 
 export default {
   name: "RwvArticlePreview",
-  components: {
-    RwvArticleMeta,
-    TagList
-  },
   props: {
     user: { type: Object, required: true }
   },
