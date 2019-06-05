@@ -35,7 +35,7 @@
               <input type="text" name="description" value="Mickey" v-model="new_achievement_description">
               <br>
               Points:<br>
-              <input type="text" name="points" value="Mouse" v-model="new_achievement_points">
+              <input type="number" name="points" value="Mouse" v-model="new_achievement_points">
               <br><br>
               <input type="submit" value="Submit" @click="addAchievement">
             </div>
@@ -69,6 +69,7 @@
   import RwvCommentEditor from '@/components/CommentEditor'
   import RwvTag from '@/components/VTag'
   import { FETCH_ARTICLE_USERS, FETCH_COMMENTS, FETCH_USER } from '@/store/actions.type'
+  import Vue from 'vue'
 
   export default {
     name: 'rwv-article',
@@ -104,7 +105,24 @@
     },
     methods: {
       addAchievement (data) {
-        alert(this.new_achievement_description + this.new_achievement_points)
+        this.showModal = false
+        console.log(window.localStorage)
+        const user = window.localStorage.getItem('id_token')
+        const params = {
+          'name': user,
+          'password': window.localStorage.getItem('pass')
+        }
+        Vue.axios.post(`users/id/${this.articles.id}/addAchievement?points=${this.new_achievement_points}&desc=${this.new_achievement_description}`, params).then(
+          response => {
+            console.log(response)
+            if(response.data){
+              store.dispatch(FETCH_USER, this.articles.id)
+            } else {
+              alert(`User "${user}" doesn't have moderator or admin access`)
+            }
+          }
+        )
+        // alert(this.new_achievement_description + this.new_achievement_points)
       },
       parseMarkdown (content) {
         return marked(content)

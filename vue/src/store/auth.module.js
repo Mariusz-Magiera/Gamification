@@ -35,7 +35,7 @@ const actions = {
             context.commit(SET_ERROR, ["Incorrect credentials"]);
           } else {
             console.log("succ");
-            context.commit(SET_AUTH, credentials.name);
+            context.commit(SET_AUTH, credentials);
           }
           resolve(data);
         })
@@ -55,7 +55,7 @@ const actions = {
         permission: { type: 1 }
       })
         .then(({ data }) => {
-          context.commit(SET_AUTH, credentials.username);
+          context.commit(SET_AUTH, credentials);
           resolve(data);
         })
         .catch(({ response }) => {
@@ -71,7 +71,7 @@ const actions = {
       ApiService.setHeader();
       // ApiService.get("user")
       //   .then(({ data }) => {
-      context.commit(SET_AUTH, user);
+      context.commit(SET_AUTH, {name: user, password: window.localStorage.getItem('pass')});
       //   })
       //   .catch(({ response }) => {
       //     context.commit(SET_ERROR, response.data.errors);
@@ -103,13 +103,15 @@ const mutations = {
   [SET_ERROR](state, error) {
     state.errors = error;
   },
-  [SET_AUTH](state, user) {
+  [SET_AUTH](state, credentials) {
+    console.log(credentials)
     state.isAuthenticated = true;
-    state.user = user;
+    state.user = credentials.name;
     state.errors = {};
     // console.log(`Saving ${state.user.username}`)
-    console.log(user);
-    JwtService.saveToken(user);
+    // console.log(state.user);
+    JwtService.saveToken(state.user);
+    window.localStorage.setItem("pass", credentials.password);
   },
   [PURGE_AUTH](state) {
     state.isAuthenticated = false;
