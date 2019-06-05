@@ -53,13 +53,16 @@ public class UserResource {
 
     @PostMapping("/add")
     public User addUser(@RequestBody User user){
-
+        user.setPassword(DigestUtils.sha1Hex(user.getPassword()));
+        Optional<User> verified = userRepository.findByName(user.getName());
+        if(verified.isPresent()){
+            return null;
+        }
         if(user.getPermission()==null){
-            Optional<Permission> p = permissionRepository.findById(0);
+            Optional<Permission> p = permissionRepository.findByName("USER");
             if(p.isPresent())
                 user.setPermission(p.get());
         }
-        user.setPassword(DigestUtils.sha1Hex(user.getPassword()));
         return userRepository.save(user);
     }
 

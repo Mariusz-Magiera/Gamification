@@ -10,6 +10,7 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findByNameAndPassword(String name, String password);
+    Optional<User> findByName(String name);
 
     //@Query("SELECT p FROM project p INNER JOIN p.project_to_user WHERE pu.user=?1")
     //List<Project> findAllProjectsById(Integer id);
