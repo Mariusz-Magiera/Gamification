@@ -10,7 +10,6 @@
         :article="article"
         :key="article.name + index"
       />
-      <VPagination :pages="pages" :currentPage.sync="currentPage" />
     </div>
   </div>
 </template>
@@ -18,15 +17,13 @@
 <script>
 import { mapGetters } from "vuex";
 import RwvArticlePreview from "./VArticlePreview";
-import VPagination from "./VPagination";
 import { FETCH_ARTICLES } from "../store/actions.type";
 import { orderBy } from "lodash";
 
 export default {
   name: "RwvArticleList",
   components: {
-    RwvArticlePreview,
-    VPagination
+    RwvArticlePreview
   },
   props: {
     type: {
@@ -107,19 +104,15 @@ export default {
       this.fetchArticles();
     },
     type() {
-      this.resetPagination();
       this.fetchArticles();
     },
     author() {
-      this.resetPagination();
       this.fetchArticles();
     },
     tag() {
-      this.resetPagination();
       this.fetchArticles();
     },
     favorited() {
-      this.resetPagination();
       this.fetchArticles();
     }
   },
@@ -130,10 +123,6 @@ export default {
     fetchArticles() {
       console.log(this.listConfig);
       this.$store.dispatch(FETCH_ARTICLES, this.listConfig);
-    },
-    resetPagination() {
-      this.listConfig.offset = 0;
-      this.currentPage = 1;
     }
   }
 };

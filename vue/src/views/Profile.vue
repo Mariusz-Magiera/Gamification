@@ -15,24 +15,7 @@
                 <i class="ion-gear-a"></i> Edit Profile Settings
               </router-link>
             </div>
-            <div v-else>
-              <!-- <button -->
-              <!-- class="btn btn-sm btn-secondary action-btn" -->
-              <!-- v-if="profile.following" -->
-              <!-- @click.prevent="unfollow();" -->
-              <!-- &gt; -->
-              <!-- <i class="ion-plus-round"></i> &nbsp;Unfollow -->
-              <!-- {{ profile.username }} -->
-              <!-- </button> -->
-              <!-- <button -->
-              <!-- class="btn btn-sm btn-outline-secondary action-btn" -->
-              <!-- v-if="!profile.following" -->
-              <!-- @click.prevent="follow();" -->
-              <!-- &gt; -->
-              <!-- <i class="ion-plus-round"></i> &nbsp;Follow -->
-              <!-- {{ profile.username }} -->
-              <!-- </button> -->
-            </div>
+            <div v-else></div>
           </div>
         </div>
       </div>
@@ -43,16 +26,6 @@
         <div class="col-xs-12 col-md-10 offset-md-1">
           <div class="articles-toggle">
             <ul class="nav nav-pills outline-active">
-              <!-- <li class="nav-item"> -->
-              <!-- <router-link -->
-              <!-- class="nav-link" -->
-              <!-- active-class="active" -->
-              <!-- exact -->
-              <!-- :to="{ name: 'profile', params: {profile: profile }}" -->
-              <!-- &gt; -->
-              <!-- My Articles -->
-              <!-- </router-link> -->
-              <!-- </li> -->
               <li class="nav-item">
                 <router-link
                   class="nav-link"
@@ -87,11 +60,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import {
-  FETCH_PROFILE,
-  FETCH_PROFILE_FOLLOW,
-  FETCH_PROFILE_UNFOLLOW
-} from "@/store/actions.type";
+import { FETCH_PROFILE } from "@/store/actions.type";
 
 export default {
   name: "RwvProfile",
@@ -107,18 +76,6 @@ export default {
         return this.currentUser.username === this.profile.username;
       }
       return false;
-    },
-    follow() {
-      if (!this.isAuthenticated) return;
-      this.$store.dispatch(FETCH_PROFILE_FOLLOW, this.$route.params);
-    },
-    unfollow() {
-      this.$store.dispatch(FETCH_PROFILE_UNFOLLOW, this.$route.params);
-    }
-  },
-  watch: {
-    $route(to) {
-      this.$store.dispatch(FETCH_PROFILE, to.params);
     }
   }
 };

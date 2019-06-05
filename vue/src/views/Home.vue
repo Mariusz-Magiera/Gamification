@@ -41,7 +41,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { FETCH_TAGS } from "@/store/actions.type";
 
 export default {
   name: "home",

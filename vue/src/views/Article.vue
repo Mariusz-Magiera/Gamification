@@ -50,10 +50,7 @@
 import { mapGetters } from "vuex";
 import marked from "marked";
 import store from "@/store";
-import {
-  FETCH_ARTICLE,
-  FETCH_ARTICLE_USERS
-} from "@/store/actions.type";
+import { FETCH_ARTICLE, FETCH_ARTICLE_USERS } from "@/store/actions.type";
 
 export default {
   name: "rwv-article",

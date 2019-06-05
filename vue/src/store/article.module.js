@@ -1,32 +1,6 @@
-import Vue from "vue";
-import {
-  ArticlesService,
-  ArticlesUserService
-} from "@/common/api.service";
-import {
-  FETCH_ARTICLE,
-  FETCH_ARTICLE_USERS,
-  FETCH_COMMENTS,
-  COMMENT_CREATE,
-  COMMENT_DESTROY,
-  FAVORITE_ADD,
-  FAVORITE_REMOVE,
-  ARTICLE_PUBLISH,
-  ARTICLE_EDIT,
-  ARTICLE_EDIT_ADD_TAG,
-  ARTICLE_EDIT_REMOVE_TAG,
-  ARTICLE_DELETE,
-  ARTICLE_RESET_STATE
-} from "./actions.type";
-import {
-  RESET_STATE,
-  SET_ARTICLE,
-  SET_ARTICLE_USERS,
-  SET_COMMENTS,
-  TAG_ADD,
-  TAG_REMOVE,
-  UPDATE_ARTICLE_IN_LIST
-} from "./mutations.type";
+import { ArticlesService, ArticlesUserService } from "@/common/api.service";
+import { FETCH_ARTICLE, FETCH_ARTICLE_USERS } from "./actions.type";
+import { SET_ARTICLE, SET_ARTICLE_USERS } from "./mutations.type";
 
 const initialState = {
   article: {

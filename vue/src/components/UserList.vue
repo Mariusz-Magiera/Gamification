@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="isLoading" class="article-preview">Loading users...</div>
-    <button id="show-modal" @click="showModal = true">Add user</button>
+    <button id="show-modal" @click="showModal = true;">Add user</button>
     <!-- use the modal component, pass in the prop -->
     <div v-if="showModal">
       <!--
@@ -9,16 +9,15 @@
         default content
       -->
       <div>
-        User:<br>
-        <input type="text" name="user" v-model="user">
-        <br>
-        Password:<br>
-        <input type="password" name="password" v-model="password">
-        <br><br>
-        Permission:<br>
-        <input type="text" name="permission" v-model="permission">
-        <br><br>
-        <input type="submit" value="Submit" @click="addUser">
+        User:<br />
+        <input type="text" name="user" v-model="user" /> <br />
+        Password:<br />
+        <input type="password" name="password" v-model="password" />
+        <br /><br />
+        Permission:<br />
+        <input type="text" name="permission" v-model="permission" />
+        <br /><br />
+        <input type="submit" value="Submit" @click="addUser" />
       </div>
     </div>
     <div v-else>
@@ -30,149 +29,138 @@
         :user="user"
         :key="user.name + index"
       />
-      <VPagination :pages="pages" :currentPage.sync="currentPage"/>
     </div>
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-  import RwvUserPreview from './VUserPreview'
-  import VPagination from './VPagination'
-  import { FETCH_USERS } from '../store/actions.type'
-  import { orderBy } from 'lodash'
-  import Vue from 'vue'
+import { mapGetters } from "vuex";
+import RwvUserPreview from "./VUserPreview";
+import { FETCH_USERS } from "../store/actions.type";
+import { orderBy } from "lodash";
+import Vue from "vue";
 
-  export default {
-    name: 'RwvArticleList',
-    components: {
-      RwvUserPreview,
-      VPagination
+export default {
+  name: "RwvArticleList",
+  components: {
+    RwvUserPreview
+  },
+  props: {
+    type: {
+      type: String,
+      required: false,
+      default: "all"
     },
-    props: {
-      type: {
-        type: String,
-        required: false,
-        default: 'all'
-      },
-      author: {
-        type: String,
-        required: false
-      },
-      tag: {
-        type: String,
-        required: false
-      },
-      favorited: {
-        type: String,
-        required: false
-      },
-      itemsPerPage: {
-        type: Number,
-        required: false,
-        default: 10
+    author: {
+      type: String,
+      required: false
+    },
+    tag: {
+      type: String,
+      required: false
+    },
+    favorited: {
+      type: String,
+      required: false
+    },
+    itemsPerPage: {
+      type: Number,
+      required: false,
+      default: 10
+    }
+  },
+  data() {
+    return {
+      currentPage: 1,
+      showModal: false,
+      permission: 1,
+      user: "",
+      password: ""
+    };
+  },
+  computed: {
+    orderedUsers: function() {
+      return orderBy(
+        this.articles,
+        user => {
+          let points = 0;
+          for (const a of user.achievements) {
+            points += a.points;
+          }
+          return points;
+        },
+        "desc"
+      );
+    },
+    listConfig() {
+      const { type } = this;
+      const filters = {
+        offset: (this.currentPage - 1) * this.itemsPerPage,
+        limit: this.itemsPerPage
+      };
+      if (this.author) {
+        filters.author = this.author;
       }
-    },
-    data () {
+      if (this.tag) {
+        filters.tag = this.tag;
+      }
+      if (this.favorited) {
+        filters.favorited = this.favorited;
+      }
       return {
-        currentPage: 1,
-        showModal: false,
-        permission: 1,
-        user: '',
-        password: ''
+        type,
+        filters
+      };
+    },
+    pages() {
+      if (this.isLoading || this.articlesCount <= this.itemsPerPage) {
+        return [];
       }
+      return [
+        ...Array(Math.ceil(this.articlesCount / this.itemsPerPage)).keys()
+      ].map(e => e + 1);
     },
-    computed: {
-      orderedUsers: function () {
-        return orderBy(
-          this.articles,
-          user => {
-            let points = 0
-            for (const a of user.achievements) {
-              points += a.points
-            }
-            return points
-          },
-          'desc'
-        )
-      },
-      listConfig () {
-        const {type} = this
-        const filters = {
-          offset: (this.currentPage - 1) * this.itemsPerPage,
-          limit: this.itemsPerPage
-        }
-        if (this.author) {
-          filters.author = this.author
-        }
-        if (this.tag) {
-          filters.tag = this.tag
-        }
-        if (this.favorited) {
-          filters.favorited = this.favorited
-        }
-        return {
-          type,
-          filters
-        }
-      },
-      pages () {
-        if (this.isLoading || this.articlesCount <= this.itemsPerPage) {
-          return []
-        }
-        return [
-          ...Array(Math.ceil(this.articlesCount / this.itemsPerPage)).keys()
-        ].map(e => e + 1)
-      },
-      ...mapGetters(['articlesCount', 'isLoading', 'articles'])
+    ...mapGetters(["articlesCount", "isLoading", "articles"])
+  },
+  watch: {
+    currentPage(newValue) {
+      this.listConfig.filters.offset = (newValue - 1) * this.itemsPerPage;
+      this.fetchArticles();
     },
-    watch: {
-      currentPage (newValue) {
-        this.listConfig.filters.offset = (newValue - 1) * this.itemsPerPage
-        this.fetchArticles()
-      },
-      type () {
-        this.resetPagination()
-        this.fetchArticles()
-      },
-      author () {
-        this.resetPagination()
-        this.fetchArticles()
-      },
-      tag () {
-        this.resetPagination()
-        this.fetchArticles()
-      },
-      favorited () {
-        this.resetPagination()
-        this.fetchArticles()
-      }
+    type() {
+      this.fetchArticles();
     },
-    mounted () {
-      this.fetchArticles()
+    author() {
+      this.fetchArticles();
     },
-    methods: {
-      addUser (data) {
-        this.showModal = false
-        const params = {
-          'permission': {
-            'type': this.permission
-          },
-          'name': this.user,
-          'password': this.password,
-          'links': [],
-          'achievements': []
-        }
-        Vue.axios.post('users/add', params)
-      },
-      fetchArticles () {
-        console.log(this.listConfig)
-        this.$store.dispatch(FETCH_USERS, this.listConfig)
-      },
-      resetPagination () {
-        this.listConfig.offset = 0
-        this.currentPage = 1
-      }
+    tag() {
+      this.fetchArticles();
+    },
+    favorited() {
+      this.fetchArticles();
+    }
+  },
+  mounted() {
+    this.fetchArticles();
+  },
+  methods: {
+    addUser() {
+      this.showModal = false;
+      const params = {
+        permission: {
+          type: this.permission
+        },
+        name: this.user,
+        password: this.password,
+        links: [],
+        achievements: []
+      };
+      Vue.axios.post("users/add", params);
+    },
+    fetchArticles() {
+      console.log(this.listConfig);
+      this.$store.dispatch(FETCH_USERS, this.listConfig);
     }
   }
+};
 </script>

@@ -1,7 +1,5 @@
 import ApiService from "@/common/api.service";
-import {
-  FETCH_PROFILE
-} from "./actions.type";
+import { FETCH_PROFILE } from "./actions.type";
 import { SET_PROFILE } from "./mutations.type";
 
 const state = {

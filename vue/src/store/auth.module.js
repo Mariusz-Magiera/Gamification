@@ -1,12 +1,6 @@
 import ApiService from "@/common/api.service";
 import JwtService from "@/common/jwt.service";
-import {
-  LOGIN,
-  LOGOUT,
-  REGISTER,
-  CHECK_AUTH,
-  UPDATE_USER
-} from "./actions.type";
+import { LOGIN, LOGOUT, REGISTER, CHECK_AUTH } from "./actions.type";
 import { SET_AUTH, PURGE_AUTH, SET_ERROR } from "./mutations.type";
 
 const state = {
@@ -71,7 +65,10 @@ const actions = {
       ApiService.setHeader();
       // ApiService.get("user")
       //   .then(({ data }) => {
-      context.commit(SET_AUTH, {name: user, password: window.localStorage.getItem('pass')});
+      context.commit(SET_AUTH, {
+        name: user,
+        password: window.localStorage.getItem("pass")
+      });
       //   })
       //   .catch(({ response }) => {
       //     context.commit(SET_ERROR, response.data.errors);
@@ -87,7 +84,7 @@ const mutations = {
     state.errors = error;
   },
   [SET_AUTH](state, credentials) {
-    console.log(credentials)
+    console.log(credentials);
     state.isAuthenticated = true;
     state.user = credentials.name;
     state.errors = {};

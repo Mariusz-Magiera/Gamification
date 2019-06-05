@@ -1,20 +1,6 @@
-import {
-  ArticlesService,
-  TagsService,
-  UsersService
-} from "@/common/api.service";
-import {
-  FETCH_ARTICLES,
-  FETCH_TAGS,
-  FETCH_USERS,
-  FETCH_USER
-} from "./actions.type";
-import {
-  FETCH_START,
-  FETCH_END,
-  SET_TAGS,
-  UPDATE_ARTICLE_IN_LIST
-} from "./mutations.type";
+import { ArticlesService, UsersService } from "@/common/api.service";
+import { FETCH_ARTICLES, FETCH_USERS, FETCH_USER } from "./actions.type";
+import { FETCH_START, FETCH_END } from "./mutations.type";
 
 const state = {
   tags: [],
